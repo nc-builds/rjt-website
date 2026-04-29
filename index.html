@@ -204,14 +204,18 @@
             stroke-linejoin: round;
         }
         .scroll-inst svg .filled { fill: currentColor; stroke: none; }
+        .scroll-inst img { filter: brightness(0) invert(1); }
         .scroll-inst:nth-child(1) { right: 40px; }
-        .scroll-inst:nth-child(1) svg { width: 28px; height: 28px; }
+        .scroll-inst:nth-child(1) svg, .scroll-inst:nth-child(1) img { width: 28px; height: 28px; }
         .scroll-inst:nth-child(2) { left: 30px; }
         .scroll-inst:nth-child(2) svg { width: 22px; height: 22px; stroke: var(--red); }
+        .scroll-inst:nth-child(2) img { width: 22px; height: 22px; }
         .scroll-inst:nth-child(3) { right: 80px; }
         .scroll-inst:nth-child(3) svg { width: 20px; height: 20px; stroke: var(--green); }
+        .scroll-inst:nth-child(3) img { width: 20px; height: 20px; }
         .scroll-inst:nth-child(4) { left: 60px; }
         .scroll-inst:nth-child(4) svg { width: 24px; height: 24px; stroke: var(--yellow); }
+        .scroll-inst:nth-child(4) img { width: 24px; height: 24px; }
         .scroll-inst.visible { opacity: 0.35; }
         @keyframes instFloat1 {
             0%, 100% { transform: translateY(0) rotate(-8deg); }
@@ -229,10 +233,10 @@
             0%, 100% { transform: translateY(0) rotate(-4deg); }
             50% { transform: translateY(-16px) rotate(7deg); }
         }
-        .scroll-inst:nth-child(1) svg { animation: instFloat1 4s ease-in-out infinite; }
-        .scroll-inst:nth-child(2) svg { animation: instFloat2 3.5s ease-in-out infinite 0.5s; }
-        .scroll-inst:nth-child(3) svg { animation: instFloat3 5s ease-in-out infinite 1s; }
-        .scroll-inst:nth-child(4) svg { animation: instFloat4 4.5s ease-in-out infinite 0.3s; }
+        .scroll-inst:nth-child(1) svg, .scroll-inst:nth-child(1) img { animation: instFloat1 4s ease-in-out infinite; }
+        .scroll-inst:nth-child(2) svg, .scroll-inst:nth-child(2) img { animation: instFloat2 3.5s ease-in-out infinite 0.5s; }
+        .scroll-inst:nth-child(3) svg, .scroll-inst:nth-child(3) img { animation: instFloat3 5s ease-in-out infinite 1s; }
+        .scroll-inst:nth-child(4) svg, .scroll-inst:nth-child(4) img { animation: instFloat4 4.5s ease-in-out infinite 0.3s; }
 
         /* ========================================
            PRELOADER
@@ -247,6 +251,8 @@
             font-family: var(--font-hero-name); font-size: clamp(60px, 12vw, 120px);
             letter-spacing: -0.06em;
             color: var(--white); opacity: 0; animation: preloaderIn 0.8s 0.2s forwards;
+            line-height: 1.6; padding: 0 0.05em 0.3em; overflow: visible;
+            -webkit-transform: translateZ(0);
         }
         /* Music note line-drawing animation */
         .preloader__note {
@@ -294,16 +300,26 @@
             position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
             padding: 28px 48px;
             display: flex; align-items: center; justify-content: space-between;
-            transition: all 0.4s ease;
+            transition: padding 0.4s ease;
+            overflow: visible;
         }
-        .nav--scrolled {
-            padding: 16px 48px;
+        .nav::before {
+            content: ''; position: absolute; inset: 0; z-index: -1;
+            background: transparent;
+            transition: background 0.4s ease, backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease;
+        }
+        .nav--scrolled { padding: 12px 48px; }
+        .nav--scrolled::before {
             background: rgba(10,10,10,0.95);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
         }
+        .nav--scrolled .nav__logo { font-size: 28px; }
         .nav__logo {
             font-family: var(--font-hero-name); font-size: 36px; color: var(--pure-white);
-            line-height: 1; transition: color 0.3s; letter-spacing: 0;
+            line-height: 2; padding: 0.2em 0.15em 0.4em;
+            margin: -0.5em 0 -0.7em -0.15em;
+            transition: color 0.3s, font-size 0.4s ease; letter-spacing: 0;
+            overflow: visible;
         }
         .nav__logo:hover { color: var(--orange); }
         .nav__links { display: flex; gap: 36px; list-style: none; }
@@ -570,6 +586,8 @@
             display: flex; align-items: center; gap: 8px;
         }
         .instrument svg { width: 18px; height: 18px; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+        .instrument img { width: 18px; height: 18px; flex-shrink: 0; filter: brightness(0) invert(0.7); transition: filter 0.3s ease; }
+        .instrument:hover img { filter: brightness(0) invert(1); }
         .instrument::before {
             content: ''; position: absolute; inset: 0; transform: scaleX(0);
             transform-origin: left; transition: transform 0.4s ease; z-index: -1;
@@ -961,6 +979,11 @@
             color: var(--silver); transition: color 0.5s ease;
         }
         .work-thumb--illustration:hover .work-thumb__svg { color: var(--pure-white); }
+        .work-thumb__img {
+            position: absolute; inset: 0; width: 100%; height: 100%; padding: 48px;
+            object-fit: contain; filter: brightness(0) invert(0.7); transition: filter 0.5s ease;
+        }
+        .work-thumb--illustration:hover .work-thumb__img { filter: brightness(0) invert(1); }
 
         /* Video Modal */
         .modal {
@@ -1183,6 +1206,10 @@
             box-shadow: 0 0 24px rgba(255,94,26,0.3);
             transform: translateX(-50%) scale(1.1);
         }
+        .h-timeline__icon-img {
+            width: 20px; height: 20px;
+            filter: brightness(0) invert(1);
+        }
         .h-timeline__icon {
             width: 20px; height: 20px;
             fill: none; stroke: var(--orange);
@@ -1249,6 +1276,9 @@
         .signoff__logo {
             font-family: var(--font-hero-name); font-size: clamp(60px, 10vw, 120px);
             color: var(--pure-white); margin-bottom: 20px; letter-spacing: -0.04em;
+            line-height: 1.6; padding: 0.2em 0.15em 0.3em;
+            margin-top: -0.3em;
+            overflow: visible;
         }
         .signoff__line {
             font-family: var(--font-head); font-size: clamp(24px, 4vw, 48px); font-weight: 400;
@@ -1277,8 +1307,8 @@
            FOOTER
         ======================================== */
         .footer {
-            padding: 48px; border-top: 1px solid rgba(255,255,255,0.06);
-            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
+            padding: 20px 48px; border-top: 1px solid rgba(255,255,255,0.06);
+            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
         }
         .footer__left { display: flex; align-items: center; gap: 32px; }
         .footer__logo {
@@ -1318,7 +1348,7 @@
             * { cursor: auto !important; }
             .scroll-inst:nth-child(2), .scroll-inst:nth-child(4) { display: none; }
             .scroll-inst:nth-child(1) { right: 16px; }
-            .scroll-inst:nth-child(1) svg { width: 22px; height: 22px; }
+            .scroll-inst:nth-child(1) svg, .scroll-inst:nth-child(1) img { width: 22px; height: 22px; }
             .scroll-inst:nth-child(3) { right: 50px; }
             .nav { padding: 20px 24px; }
             .nav--scrolled { padding: 14px 24px; }
@@ -1483,21 +1513,21 @@
 
 <!-- FLOATING SCROLL INSTRUMENTS — line drawing style -->
 <div class="scroll-instruments" id="scrollInstruments">
-    <!-- Quarter note -->
+    <!-- Half note -->
     <div class="scroll-inst" id="scrollInst1">
-        <svg viewBox="0 0 24 24"><line x1="14" y1="4" x2="14" y2="17"/><ellipse cx="10" cy="18" rx="4" ry="3" transform="rotate(-15 10 18)"/><path d="M14 4 Q18 6 17 10" opacity="0.6"/></svg>
+        <img src="Icons/half note.png" alt="Half note">
     </div>
-    <!-- Trombone -->
+    <!-- Trumpet -->
     <div class="scroll-inst" id="scrollInst2">
-        <svg viewBox="0 0 32 24"><line x1="3" y1="10" x2="18" y2="10"/><line x1="3" y1="13" x2="18" y2="13"/><path d="M3 10 Q1 10 1 11.5 Q1 13 3 13"/><path d="M18 10 Q21 10 23 7 L26 4"/><path d="M18 13 Q21 13 23 16 L26 19"/><line x1="26" y1="4" x2="26" y2="19"/><line x1="9" y1="13" x2="9" y2="17"/><line x1="12" y1="13" x2="12" y2="17"/><line x1="9" y1="17" x2="28" y2="17"/><line x1="9" y1="20" x2="28" y2="20"/><path d="M28 17 Q30 17 30 18.5 Q30 20 28 20"/></svg>
+        <img src="Icons/trumpet.png" alt="Trumpet">
     </div>
     <!-- Saxophone -->
     <div class="scroll-inst" id="scrollInst3">
-        <svg viewBox="0 0 24 24"><path d="M15 3v4 Q15 9 13 11 L11 13 Q9 15 9 17v1 Q9 21 12 22 Q15 21 15 18v-1"/><circle cx="11" cy="10" r="1"/><circle cx="10" cy="13" r="1"/><circle cx="10" cy="16" r="1"/></svg>
+        <img src="Icons/Saxophone.png" alt="Saxophone">
     </div>
-    <!-- Double eighth notes -->
+    <!-- Full note -->
     <div class="scroll-inst" id="scrollInst4">
-        <svg viewBox="0 0 24 24"><ellipse cx="6" cy="18" rx="3.5" ry="2.5" transform="rotate(-15 6 18)"/><ellipse cx="18" cy="16" rx="3.5" ry="2.5" transform="rotate(-15 18 16)"/><line x1="9" y1="17" x2="9" y2="5"/><line x1="21" y1="15" x2="21" y2="3"/><line x1="9" y1="5" x2="21" y2="3"/></svg>
+        <img src="Icons/full note.png" alt="Full note">
     </div>
 </div>
 
@@ -1633,27 +1663,27 @@
             <p class="reveal reveal-d4">From the <strong>Commonwealth Games</strong> in Australia to <strong>Lollapalooza India</strong>, from <strong>Coke Studio</strong> sessions to the <strong>Bombay Chamber Orchestra</strong>, RJT moves between worlds with the kind of fluency that only comes from genuine musical depth.</p>
             <div class="instruments reveal reveal-d4">
                 <span class="instrument">
-                    <svg viewBox="0 0 24 24"><path d="M3 12h13"/><path d="M16 12q3-4 5-4v8q-2 0-5-4"/><line x1="3" y1="10" x2="3" y2="14"/><circle cx="7" cy="9" r="2"/><line x1="7" y1="7" x2="7" y2="4"/></svg>
+                    <img src="Icons/trombone.png" alt="Trombone">
                     Trombone
                 </span>
                 <span class="instrument">
-                    <svg viewBox="0 0 24 24"><path d="M15 3v5q0 2-2 3l-2 2q-2 2-2 4v2q0 3 3 4t3-3v-2"/><circle cx="12" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="11" cy="13" r="1" fill="currentColor" stroke="none"/></svg>
+                    <img src="Icons/Saxophone.png" alt="Saxophone">
                     Saxophone
                 </span>
                 <span class="instrument">
-                    <svg viewBox="0 0 24 24"><path d="M3 12h13"/><path d="M16 12q3-3 5-3v6q-2 0-5-3"/><line x1="3" y1="10.5" x2="3" y2="13.5"/><circle cx="8" cy="9" r="1.5"/><circle cx="11" cy="9" r="1.5"/><line x1="8" y1="7.5" x2="8" y2="5"/><line x1="11" y1="7.5" x2="11" y2="5"/></svg>
+                    <img src="Icons/trumpet%202.png" alt="Trumpet">
                     Trumpet
                 </span>
                 <span class="instrument">
-                    <svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="18"/><path d="M10 18q-1 2 1 3.5t3-1.5"/><circle cx="11" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="11" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="11" cy="13" r="1" fill="currentColor" stroke="none"/><circle cx="13" cy="8.5" r="1" fill="currentColor" stroke="none"/></svg>
+                    <img src="Icons/Clarinet.png" alt="Clarinet">
                     Clarinet
                 </span>
                 <span class="instrument">
-                    <svg viewBox="0 0 24 24"><path d="M12 2v20"/><path d="M8 5q0-2 4-2t4 2"/><path d="M9 5v15M15 5v15"/><line x1="7" y1="22" x2="17" y2="22"/><path d="M9 12q3 2 6 0"/></svg>
+                    <img src="Icons/guitar.png" alt="Guitar">
                     Guitar
                 </span>
                 <span class="instrument">
-                    <svg viewBox="0 0 24 24"><circle cx="9" cy="14" r="5"/><circle cx="9" cy="14" r="2"/><circle cx="9" cy="14" r="0.5" fill="currentColor" stroke="none"/><path d="M14 9l4-4"/><circle cx="19" cy="4" r="1.5"/><path d="M4 20h16v2H4z"/></svg>
+                    <img src="Icons/vinyl.png" alt="DJ &amp; Producer">
                     DJ &amp; Producer
                 </span>
             </div>
@@ -1683,156 +1713,109 @@
     </div>
 
     <div class="work-grid reveal reveal-d3" id="workGrid">
-        <!-- 1. Funky Lambo — Trombone bell with sound waves -->
-        <div class="work-thumb work-thumb--illustration" data-link="https://www.youtube.com/watch?v=rGH5L08GUUA">
-            <svg class="work-thumb__svg" viewBox="0 0 400 225" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                <!-- Trombone slide -->
-                <line x1="80" y1="112" x2="210" y2="112"/>
-                <line x1="80" y1="108" x2="80" y2="116"/>
-                <line x1="80" y1="120" x2="130" y2="120"/>
-                <line x1="80" y1="120" x2="80" y2="112"/>
-                <line x1="130" y1="120" x2="130" y2="112"/>
-                <!-- Bell -->
-                <path d="M210 112 Q240 92 260 80 Q278 72 290 82 Q302 96 298 112 Q302 128 290 142 Q278 152 260 144 Q240 132 210 112"/>
-                <!-- Sound waves from bell -->
-                <path d="M295 96 Q314 82 314 112 Q314 142 295 128" opacity="0.5"/>
-                <path d="M310 84 Q334 66 334 112 Q334 158 310 140" opacity="0.3"/>
-                <path d="M324 74 Q352 52 352 112 Q352 172 324 150" opacity="0.15"/>
-                <!-- Floating notes -->
-                <ellipse cx="150" cy="72" rx="6" ry="4" transform="rotate(-18 150 72)" stroke-width="1" opacity="0.4"/>
-                <line x1="155" y1="70" x2="155" y2="48" stroke-width="1" opacity="0.4"/>
-                <path d="M155 48 Q162 44 162 52" stroke-width="1" opacity="0.4"/>
-                <ellipse cx="175" cy="152" rx="5" ry="3.5" transform="rotate(-18 175 152)" stroke-width="1" opacity="0.25"/>
-                <line x1="179" y1="150" x2="179" y2="130" stroke-width="1" opacity="0.25"/>
+        <!-- 1. Horn bell with music notes (Funky Lambo) -->
+        <div class="work-thumb work-thumb--illustration" data-video="https://www.youtube.com/embed/rGH5L08GUUA?autoplay=1">
+            <svg class="work-thumb__svg" viewBox="0 0 400 225" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100 112 L200 112" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M100 108 L100 116" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M200 112 Q230 90 260 75 Q280 65 295 75 Q310 90 305 112 Q310 134 295 149 Q280 159 260 149 Q230 134 200 112" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round"/>
+                <path d="M290 95 Q310 80 310 112 Q310 144 290 129" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.6"/>
+                <path d="M305 82 Q330 65 330 112 Q330 159 305 142" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.35"/>
+                <ellipse cx="145" cy="72" rx="6" ry="4.5" transform="rotate(-20 145 72)" fill="currentColor" opacity="0.5"/>
+                <line x1="150" y1="70" x2="150" y2="45" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+                <path d="M150 45 Q158 42 158 50" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+                <ellipse cx="170" cy="155" rx="6" ry="4.5" transform="rotate(-20 170 155)" fill="currentColor" opacity="0.4"/>
+                <line x1="175" y1="153" x2="175" y2="130" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+                <path d="M175 130 Q183 127 183 135" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.4"/>
+                <ellipse cx="240" cy="168" rx="5" ry="4" transform="rotate(-15 240 168)" fill="currentColor" opacity="0.3"/>
+                <ellipse cx="256" cy="164" rx="5" ry="4" transform="rotate(-15 256 164)" fill="currentColor" opacity="0.3"/>
+                <line x1="244" y1="166" x2="244" y2="144" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
+                <line x1="260" y1="162" x2="260" y2="140" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
+                <line x1="244" y1="144" x2="260" y2="140" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
             </svg>
             <div class="work-thumb__overlay">
-                <div class="work-thumb__play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="currentColor"/></svg></div>
+                <div class="work-thumb__play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg></div>
                 <div class="work-thumb__tag">YouTube</div>
                 <div class="work-thumb__title">Funky Lambo</div>
                 <div class="work-thumb__desc">Benny Dayal ft. Funktuation &amp; The Hornflakes</div>
             </div>
         </div>
 
-        <!-- 2. Live Performance — Saxophone -->
-        <div class="work-thumb work-thumb--illustration" data-link="https://www.youtube.com/watch?v=9sQSlmkgB4M">
-            <svg class="work-thumb__svg" viewBox="0 0 400 225" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                <!-- Saxophone body -->
-                <path d="M220 38 L220 58 Q220 68 212 74 L188 88 Q174 96 170 110 L166 140 Q164 168 180 182 Q194 194 210 184 Q226 172 228 148 L232 120"/>
-                <!-- Mouthpiece curve -->
-                <path d="M216 38 Q214 28 220 24 Q226 20 232 26 Q236 32 234 40"/>
-                <!-- Bell -->
-                <ellipse cx="192" cy="190" rx="32" ry="24"/>
-                <!-- Keys -->
-                <circle cx="194" cy="98" r="3.5" opacity="0.6"/>
-                <circle cx="190" cy="112" r="3.5" opacity="0.6"/>
-                <circle cx="188" cy="126" r="3.5" opacity="0.6"/>
-                <circle cx="190" cy="140" r="3.5" opacity="0.6"/>
-                <circle cx="196" cy="154" r="3" opacity="0.6"/>
-                <!-- Sound waves -->
-                <path d="M160 190 Q148 178 148 192 Q148 206 160 194" opacity="0.3"/>
-                <path d="M148 186 Q132 170 132 192 Q132 214 148 198" opacity="0.18"/>
+        <!-- 2. Saxophone -->
+        <div class="work-thumb work-thumb--illustration" data-video="https://www.youtube.com/embed/9sQSlmkgB4M?autoplay=1">
+            <svg class="work-thumb__svg" viewBox="0 0 400 225" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M215 40 L215 60 Q215 72 205 78 L178 92 Q162 100 162 118 L162 148 Q162 172 182 182 Q198 190 210 182 Q228 170 228 148 L228 125" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <ellipse cx="192" cy="188" rx="30" ry="26" stroke="currentColor" stroke-width="2" fill="none"/>
+                <path d="M210 40 Q210 32 215 28 Q220 24 226 28 Q232 32 232 40 L232 46" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <circle cx="192" cy="100" r="3" fill="currentColor" opacity="0.7"/>
+                <circle cx="188" cy="114" r="3" fill="currentColor" opacity="0.7"/>
+                <circle cx="186" cy="128" r="3" fill="currentColor" opacity="0.7"/>
+                <circle cx="188" cy="142" r="3" fill="currentColor" opacity="0.7"/>
+                <circle cx="192" cy="155" r="3" fill="currentColor" opacity="0.7"/>
             </svg>
             <div class="work-thumb__overlay">
-                <div class="work-thumb__play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="currentColor"/></svg></div>
+                <div class="work-thumb__play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg></div>
                 <div class="work-thumb__tag">Live</div>
                 <div class="work-thumb__title">Live Performance</div>
                 <div class="work-thumb__desc">RJT on stage &mdash; brass, groove, presence</div>
             </div>
         </div>
 
-        <!-- 3. TEDx — Microphone with sound bars -->
-        <div class="work-thumb work-thumb--illustration" data-link="https://www.youtube.com/watch?v=ZpQiLoxIlq4">
-            <svg class="work-thumb__svg" viewBox="0 0 400 225" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                <!-- Microphone body -->
-                <rect x="185" y="50" width="30" height="70" rx="15"/>
-                <!-- Microphone grille lines -->
-                <line x1="190" y1="62" x2="210" y2="62" opacity="0.3"/>
-                <line x1="190" y1="70" x2="210" y2="70" opacity="0.3"/>
-                <line x1="190" y1="78" x2="210" y2="78" opacity="0.3"/>
-                <line x1="190" y1="86" x2="210" y2="86" opacity="0.3"/>
-                <!-- Stand arc -->
-                <path d="M170 120 Q170 142 200 142 Q230 142 230 120"/>
-                <!-- Stand pole -->
-                <line x1="200" y1="142" x2="200" y2="185"/>
-                <!-- Stand base -->
-                <line x1="175" y1="185" x2="225" y2="185"/>
-                <!-- Sound bars (equalizer style) -->
-                <line x1="255" y1="95" x2="255" y2="115" opacity="0.5"/>
-                <line x1="268" y1="80" x2="268" y2="115" opacity="0.4"/>
-                <line x1="281" y1="90" x2="281" y2="115" opacity="0.35"/>
-                <line x1="294" y1="70" x2="294" y2="115" opacity="0.3"/>
-                <line x1="307" y1="85" x2="307" y2="115" opacity="0.25"/>
-                <!-- TEDx-style circle -->
-                <circle cx="130" cy="112" r="28" opacity="0.12" stroke-width="1.5"/>
-                <text x="118" y="118" fill="currentColor" stroke="none" font-family="var(--font-head)" font-size="16" letter-spacing="2" opacity="0.15">TEDx</text>
+        <!-- 3. Trumpet -->
+        <div class="work-thumb work-thumb--illustration" data-video="https://www.youtube.com/embed/ZpQiLoxIlq4?autoplay=1">
+            <svg class="work-thumb__svg" viewBox="0 0 400 225" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="95" y1="112" x2="235" y2="112" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M235 112 Q268 112 278 98 Q288 82 292 112 Q288 142 278 126 Q268 112 235 112" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <ellipse cx="308" cy="112" rx="18" ry="28" stroke="currentColor" stroke-width="2" fill="none"/>
+                <path d="M95 112 L82 108 Q78 107 78 112 Q78 117 82 116 L95 112" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <circle cx="152" cy="100" r="5.5" stroke="currentColor" stroke-width="2" fill="none"/>
+                <line x1="152" y1="94.5" x2="152" y2="82" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="172" cy="98" r="5.5" stroke="currentColor" stroke-width="2" fill="none"/>
+                <line x1="172" y1="92.5" x2="172" y2="78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="192" cy="100" r="5.5" stroke="currentColor" stroke-width="2" fill="none"/>
+                <line x1="192" y1="94.5" x2="192" y2="82" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
             <div class="work-thumb__overlay">
-                <div class="work-thumb__play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="currentColor"/></svg></div>
+                <div class="work-thumb__play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg></div>
                 <div class="work-thumb__tag">TEDx</div>
                 <div class="work-thumb__title">TEDx GRD Coimbatore</div>
                 <div class="work-thumb__desc">On music, movement &amp; the unexpected</div>
             </div>
         </div>
 
-        <!-- 4. Instagram — Trumpet with staff lines -->
-        <div class="work-thumb work-thumb--illustration" data-link="https://www.instagram.com/p/CS_1hLhlSI2/">
-            <svg class="work-thumb__svg" viewBox="0 0 400 225" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                <!-- Trumpet body -->
-                <line x1="90" y1="112" x2="240" y2="112"/>
-                <!-- Mouthpiece -->
-                <path d="M90 112 L78 108 Q74 106 74 112 Q74 118 78 116 L90 112"/>
-                <!-- Valves -->
-                <rect x="142" y="88" width="12" height="24" rx="3" opacity="0.5"/>
-                <line x1="148" y1="88" x2="148" y2="74"/>
-                <rect x="164" y="86" width="12" height="24" rx="3" opacity="0.5"/>
-                <line x1="170" y1="86" x2="170" y2="70"/>
-                <rect x="186" y="88" width="12" height="24" rx="3" opacity="0.5"/>
-                <line x1="192" y1="88" x2="192" y2="74"/>
-                <!-- Bell curve -->
-                <path d="M240 112 Q268 112 280 98 Q292 82 296 112 Q292 142 280 126 Q268 112 240 112"/>
-                <!-- Bell opening -->
-                <ellipse cx="312" cy="112" rx="18" ry="30"/>
-                <!-- Musical staff lines (subtle) -->
-                <line x1="90" y1="155" x2="310" y2="155" opacity="0.08"/>
-                <line x1="90" y1="163" x2="310" y2="163" opacity="0.08"/>
-                <line x1="90" y1="171" x2="310" y2="171" opacity="0.08"/>
-                <line x1="90" y1="179" x2="310" y2="179" opacity="0.08"/>
-                <line x1="90" y1="187" x2="310" y2="187" opacity="0.08"/>
-                <!-- Notes on staff -->
-                <ellipse cx="140" cy="171" rx="6" ry="4" transform="rotate(-15 140 171)" opacity="0.2"/>
-                <line x1="145" y1="169" x2="145" y2="149" opacity="0.2"/>
-                <ellipse cx="200" cy="163" rx="6" ry="4" transform="rotate(-15 200 163)" opacity="0.2"/>
-                <line x1="205" y1="161" x2="205" y2="141" opacity="0.2"/>
-                <ellipse cx="260" cy="175" rx="6" ry="4" transform="rotate(-15 260 175)" opacity="0.2"/>
-                <line x1="265" y1="173" x2="265" y2="153" opacity="0.2"/>
+        <!-- 4. Clarinet -->
+        <div class="work-thumb work-thumb--illustration" data-video="https://www.instagram.com/p/CS_1hLhlSI2/embed/">
+            <svg class="work-thumb__svg" viewBox="0 0 400 225" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="200" y1="32" x2="200" y2="168" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M195 168 Q195 182 190 188 Q185 194 190 200 Q200 206 210 200 Q215 194 210 188 Q205 182 205 168" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <path d="M196 32 L196 24 Q198 20 200 20 Q202 20 204 24 L204 32" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <rect x="194" y="46" width="12" height="3" rx="1" fill="currentColor" opacity="0.6"/>
+                <circle cx="196" cy="68" r="3" fill="currentColor" opacity="0.7"/>
+                <circle cx="196" cy="84" r="3" fill="currentColor" opacity="0.7"/>
+                <circle cx="196" cy="100" r="3" fill="currentColor" opacity="0.7"/>
+                <circle cx="204" cy="92" r="3" fill="currentColor" opacity="0.7"/>
+                <circle cx="196" cy="118" r="3" fill="currentColor" opacity="0.7"/>
+                <circle cx="196" cy="134" r="3" fill="currentColor" opacity="0.7"/>
+                <circle cx="196" cy="150" r="3" fill="currentColor" opacity="0.7"/>
             </svg>
             <div class="work-thumb__overlay">
-                <div class="work-thumb__play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21" fill="currentColor"/></svg></div>
+                <div class="work-thumb__play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg></div>
                 <div class="work-thumb__tag">Instagram</div>
                 <div class="work-thumb__title">Live Session</div>
                 <div class="work-thumb__desc">@wheresrjt</div>
             </div>
         </div>
 
-        <!-- 5. Spotify — Turntable / vinyl -->
-        <a href="https://open.spotify.com/user/31roaziflmehis77suhs3pa773ai" target="_blank" rel="noopener" class="work-thumb work-thumb--illustration">
-            <svg class="work-thumb__svg" viewBox="0 0 400 225" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                <!-- Turntable base -->
-                <rect x="110" y="55" width="180" height="120" rx="4"/>
-                <!-- Record -->
-                <circle cx="195" cy="118" r="42"/>
-                <circle cx="195" cy="118" r="16" opacity="0.4"/>
-                <circle cx="195" cy="118" r="4"/>
-                <!-- Grooves -->
-                <circle cx="195" cy="118" r="28" opacity="0.15" stroke-dasharray="3 4"/>
-                <circle cx="195" cy="118" r="35" opacity="0.1" stroke-dasharray="2 5"/>
-                <!-- Tonearm -->
-                <line x1="268" y1="76" x2="218" y2="104"/>
-                <circle cx="270" cy="74" r="5"/>
-                <!-- Tonearm head -->
-                <line x1="218" y1="104" x2="212" y2="108" stroke-width="2"/>
-                <!-- Subtle waveform decoration -->
-                <path d="M110 190 Q130 184 150 190 Q170 196 190 190 Q210 184 230 190 Q250 196 270 190 Q290 184 310 190" opacity="0.1"/>
+        <!-- 5. Turntable / DJ -->
+        <a href="https://open.spotify.com/artist/67QPbH2LkFs2LVEcO9ss1S" target="_blank" rel="noopener" class="work-thumb work-thumb--illustration">
+            <svg class="work-thumb__svg" viewBox="0 0 400 225" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="115" y="65" width="170" height="100" rx="3" stroke="currentColor" stroke-width="2" fill="none"/>
+                <circle cx="190" cy="115" r="35" stroke="currentColor" stroke-width="2" fill="none"/>
+                <circle cx="190" cy="115" r="14" stroke="currentColor" stroke-width="1.2" fill="none" opacity="0.5"/>
+                <circle cx="190" cy="115" r="3.5" fill="currentColor" opacity="0.7"/>
+                <circle cx="190" cy="115" r="25" stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.25" stroke-dasharray="3 3"/>
+                <line x1="255" y1="85" x2="200" y2="108" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="258" cy="83" r="4.5" stroke="currentColor" stroke-width="2" fill="none"/>
             </svg>
             <div class="work-thumb__overlay">
                 <div class="work-thumb__tag" style="color: #1DB954;">Spotify</div>
@@ -1841,39 +1824,18 @@
             </div>
         </a>
 
-        <!-- 6. SoundCloud — Headphones with waveform -->
-        <a href="https://soundcloud.com/therjt" target="_blank" rel="noopener" class="work-thumb work-thumb--illustration">
-            <svg class="work-thumb__svg" viewBox="0 0 400 225" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                <!-- Headphone arc -->
-                <path d="M148 135 Q148 72 200 62 Q252 72 252 135"/>
-                <!-- Left ear cup -->
-                <rect x="132" y="128" width="24" height="44" rx="7"/>
-                <!-- Right ear cup -->
-                <rect x="244" y="128" width="24" height="44" rx="7"/>
-                <!-- Connectors -->
-                <line x1="148" y1="132" x2="152" y2="138" stroke-width="1.5"/>
-                <line x1="252" y1="132" x2="248" y2="138" stroke-width="1.5"/>
-                <!-- Padding detail -->
-                <line x1="140" y1="138" x2="140" y2="162" opacity="0.3"/>
-                <line x1="260" y1="138" x2="260" y2="162" opacity="0.3"/>
-                <!-- Sound waves between cups -->
-                <path d="M165 145 Q170 138 170 150 Q170 158 165 152" opacity="0.35"/>
-                <path d="M176 140 Q184 130 184 152 Q184 168 176 158" opacity="0.2"/>
-                <path d="M235 145 Q230 138 230 150 Q230 158 235 152" opacity="0.35"/>
-                <path d="M224 140 Q216 130 216 152 Q216 168 224 158" opacity="0.2"/>
-                <!-- Waveform bar across bottom -->
-                <line x1="145" y1="192" x2="145" y2="200" opacity="0.25"/>
-                <line x1="155" y1="188" x2="155" y2="200" opacity="0.25"/>
-                <line x1="165" y1="184" x2="165" y2="200" opacity="0.25"/>
-                <line x1="175" y1="190" x2="175" y2="200" opacity="0.25"/>
-                <line x1="185" y1="182" x2="185" y2="200" opacity="0.25"/>
-                <line x1="195" y1="186" x2="195" y2="200" opacity="0.25"/>
-                <line x1="205" y1="180" x2="205" y2="200" opacity="0.25"/>
-                <line x1="215" y1="188" x2="215" y2="200" opacity="0.25"/>
-                <line x1="225" y1="184" x2="225" y2="200" opacity="0.25"/>
-                <line x1="235" y1="190" x2="235" y2="200" opacity="0.25"/>
-                <line x1="245" y1="186" x2="245" y2="200" opacity="0.25"/>
-                <line x1="255" y1="192" x2="255" y2="200" opacity="0.25"/>
+        <!-- 6. Headphones / Producer -->
+        <a href="https://soundcloud.com/vineethvincentofficial/sets/saxbox" target="_blank" rel="noopener" class="work-thumb work-thumb--illustration">
+            <svg class="work-thumb__svg" viewBox="0 0 400 225" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M155 130 Q155 75 200 65 Q245 75 245 130" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <rect x="140" y="125" width="22" height="40" rx="6" stroke="currentColor" stroke-width="2" fill="none"/>
+                <rect x="238" y="125" width="22" height="40" rx="6" stroke="currentColor" stroke-width="2" fill="none"/>
+                <line x1="151" y1="125" x2="155" y2="130" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <line x1="249" y1="125" x2="245" y2="130" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M175 140 Q180 135 180 145 Q180 150 175 145" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.45"/>
+                <path d="M185 135 Q192 128 192 148 Q192 158 185 150" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.3"/>
+                <path d="M225 140 Q220 135 220 145 Q220 150 225 145" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.45"/>
+                <path d="M215 135 Q208 128 208 148 Q208 158 215 150" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.3"/>
             </svg>
             <div class="work-thumb__overlay">
                 <div class="work-thumb__tag" style="color: #FF5500;">SoundCloud</div>
@@ -1906,51 +1868,7 @@
             <div class="h-timeline__hint">Drag to explore</div>
         </div>
         <div class="film-scroll reveal reveal-d1" id="filmScroll">
-            <!-- 1. Manjummel Boys -->
-            <div class="film-card">
-                <div class="film-card__poster film-card__poster--img">
-                    <img src="https://image.tmdb.org/t/p/w500/bswrtewwthpsh6nABiqKevU4UBI.jpg" alt="Manjummel Boys poster" width="500" height="750" loading="lazy">
-                </div>
-                <div class="film-card__info">
-                    <div class="film-card__title">Manjummel Boys</div>
-                    <div class="film-card__track">"Kuthanthram" &mdash; Sushin Shyam, Vedan</div>
-                    <div class="film-card__role">Saxophone &amp; Trombone</div>
-                </div>
-            </div>
-            <!-- 2. Raghu Thatha -->
-            <div class="film-card">
-                <div class="film-card__poster film-card__poster--img">
-                    <img src="https://image.tmdb.org/t/p/w500/y3YGrhBEXoV9vGXDfYdBwhrm2jx.jpg" alt="Raghu Thatha poster" width="500" height="750" loading="lazy">
-                </div>
-                <div class="film-card__info">
-                    <div class="film-card__title">Raghu Thatha</div>
-                    <div class="film-card__track">"Aruge Vaa" &mdash; Sean Roldan</div>
-                    <div class="film-card__role">Trombone</div>
-                </div>
-            </div>
-            <!-- 3. The Pet Detective -->
-            <div class="film-card">
-                <div class="film-card__poster film-card__poster--img">
-                    <img src="https://image.tmdb.org/t/p/w500/ydaAO8A9pIdtLN6K3hSAGVn08rH.jpg" alt="The Pet Detective poster" width="500" height="750" loading="lazy">
-                </div>
-                <div class="film-card__info">
-                    <div class="film-card__title">The Pet Detective</div>
-                    <div class="film-card__track">5 Tracks &mdash; Rajesh Murugesan</div>
-                    <div class="film-card__role">Saxophone &amp; Trombone</div>
-                </div>
-            </div>
-            <!-- 4. Nathicharami -->
-            <div class="film-card">
-                <div class="film-card__poster film-card__poster--img">
-                    <img src="https://image.tmdb.org/t/p/w500/3cv0bQgu9PnH89xms2byU9ld7V2.jpg" alt="Nathicharami poster" width="500" height="750" loading="lazy">
-                </div>
-                <div class="film-card__info">
-                    <div class="film-card__title">Nathicharami</div>
-                    <div class="film-card__track">"Vasundhare" &amp; "Desire" &mdash; Bindhumalini</div>
-                    <div class="film-card__role">Trombone</div>
-                </div>
-            </div>
-            <!-- 5. Vaazha 2 -->
+            <!-- 1. Vaazha 2 — April 2026 -->
             <div class="film-card">
                 <div class="film-card__poster film-card__poster--img">
                     <img src="https://image.tmdb.org/t/p/w500/1yLZ7kExd0UGGbaZW4LxmYD4OIf.jpg" alt="Vaazha 2 poster" width="500" height="750" loading="lazy">
@@ -1961,25 +1879,32 @@
                     <div class="film-card__role">Saxophone &amp; Trombone</div>
                 </div>
             </div>
-            <!-- 6. Back Bencherz -->
+            <!-- 2. The Pet Detective — October 2025 -->
             <div class="film-card">
-                <div class="film-card__poster">
-                    <svg class="film-card__poster-icon" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-                    <div class="film-card__poster-title">Back Bencherz</div>
-                    <div class="film-card__poster-year">2024</div>
+                <div class="film-card__poster film-card__poster--img">
+                    <img src="https://image.tmdb.org/t/p/w500/ydaAO8A9pIdtLN6K3hSAGVn08rH.jpg" alt="The Pet Detective poster" width="500" height="750" loading="lazy">
                 </div>
                 <div class="film-card__info">
-                    <div class="film-card__title">Back Bencherz</div>
-                    <div class="film-card__track">Title Track &mdash; Vijay Prakash, Nakul Abhyankar</div>
+                    <div class="film-card__title">The Pet Detective</div>
+                    <div class="film-card__track">5 Tracks &mdash; Rajesh Murugesan</div>
                     <div class="film-card__role">Saxophone &amp; Trombone</div>
                 </div>
             </div>
-            <!-- 7. Loopd -->
+            <!-- 3. ICC Women's World Cup — September 2025 -->
             <div class="film-card">
-                <div class="film-card__poster">
-                    <svg class="film-card__poster-icon" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-6.219-8.56"/><polyline points="22 2 12 12"/></svg>
-                    <div class="film-card__poster-title">Loopd</div>
-                    <div class="film-card__poster-year">2025</div>
+                <div class="film-card__poster film-card__poster--img">
+                    <img src="https://images.icc-cricket.com/image/upload/t_ratio3_4-size40/v1758267624/prd/halpqerlcsir7encksml" alt="Bring It Home - ICC Women's Cricket World Cup 2025" width="500" height="750" loading="lazy">
+                </div>
+                <div class="film-card__info">
+                    <div class="film-card__title">ICC Women's World Cup</div>
+                    <div class="film-card__track">"Bring It Home" &mdash; Shreya Ghoshal, Andrea Jeremiah</div>
+                    <div class="film-card__role">Saxophone &amp; Trombone</div>
+                </div>
+            </div>
+            <!-- 4. Loopd — 2025 -->
+            <div class="film-card">
+                <div class="film-card__poster film-card__poster--img">
+                    <img src="https://raag.fm/covers/40884/Solo_King_(From_Loopd)_Naveen_Bharathi,Varun_Sunil.jpg" alt="Solo King from Loopd - Varun Sunil" width="500" height="500" loading="lazy">
                 </div>
                 <div class="film-card__info">
                     <div class="film-card__title">Loopd</div>
@@ -1987,12 +1912,10 @@
                     <div class="film-card__role">Saxophone &amp; Trombone</div>
                 </div>
             </div>
-            <!-- 8. ASHANA (Album) -->
+            <!-- 5. ASHANA (Album) — April 2025 -->
             <div class="film-card">
-                <div class="film-card__poster">
-                    <svg class="film-card__poster-icon" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-                    <div class="film-card__poster-title">ASHANA</div>
-                    <div class="film-card__poster-year">2025 &middot; Album</div>
+                <div class="film-card__poster film-card__poster--img">
+                    <img src="https://theindianmusicdiaries.com/wp-content/uploads/2025/04/WhatsApp-Image-2025-04-11-at-15.22.07_49b8bd9f-scaled.jpg" alt="Alva Kuuto - ASHANA album" width="500" height="750" loading="lazy">
                 </div>
                 <div class="film-card__info">
                     <div class="film-card__title">ASHANA</div>
@@ -2000,17 +1923,48 @@
                     <div class="film-card__role">Saxophone &amp; Trombone</div>
                 </div>
             </div>
-            <!-- 10. ICC Women's World Cup -->
+            <!-- 6. Raghu Thatha — August 2024 -->
             <div class="film-card">
-                <div class="film-card__poster">
-                    <svg class="film-card__poster-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><path d="M5.3 8.5Q8 11 8 12t-2.7 3.5"/><path d="M18.7 8.5Q16 11 16 12t2.7 3.5"/><path d="M19 3l-3 4M22 8l-4 2"/></svg>
-                    <div class="film-card__poster-title">ICC Women's World Cup</div>
-                    <div class="film-card__poster-year">2025</div>
+                <div class="film-card__poster film-card__poster--img">
+                    <img src="https://image.tmdb.org/t/p/w500/y3YGrhBEXoV9vGXDfYdBwhrm2jx.jpg" alt="Raghu Thatha poster" width="500" height="750" loading="lazy">
                 </div>
                 <div class="film-card__info">
-                    <div class="film-card__title">ICC Women's World Cup</div>
-                    <div class="film-card__track">"Bring It Home" &mdash; Shreya Ghoshal, Andrea Jeremiah</div>
+                    <div class="film-card__title">Raghu Thatha</div>
+                    <div class="film-card__track">"Aruge Vaa" &mdash; Sean Roldan</div>
+                    <div class="film-card__role">Trombone</div>
+                </div>
+            </div>
+            <!-- 7. Back Bencherz — July 2024 -->
+            <div class="film-card">
+                <div class="film-card__poster film-card__poster--img">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/c/c7/Back_Bencherz.jpg" alt="Back Bencherz poster" width="500" height="750" loading="lazy">
+                </div>
+                <div class="film-card__info">
+                    <div class="film-card__title">Back Bencherz</div>
+                    <div class="film-card__track">Title Track &mdash; Vijay Prakash, Nakul Abhyankar</div>
                     <div class="film-card__role">Saxophone &amp; Trombone</div>
+                </div>
+            </div>
+            <!-- 8. Manjummel Boys — February 2024 -->
+            <div class="film-card">
+                <div class="film-card__poster film-card__poster--img">
+                    <img src="https://image.tmdb.org/t/p/w500/bswrtewwthpsh6nABiqKevU4UBI.jpg" alt="Manjummel Boys poster" width="500" height="750" loading="lazy">
+                </div>
+                <div class="film-card__info">
+                    <div class="film-card__title">Manjummel Boys</div>
+                    <div class="film-card__track">"Kuthanthram" &mdash; Sushin Shyam, Vedan</div>
+                    <div class="film-card__role">Saxophone &amp; Trombone</div>
+                </div>
+            </div>
+            <!-- 9. Nathicharami — December 2018 -->
+            <div class="film-card">
+                <div class="film-card__poster film-card__poster--img">
+                    <img src="https://image.tmdb.org/t/p/w500/3cv0bQgu9PnH89xms2byU9ld7V2.jpg" alt="Nathicharami poster" width="500" height="750" loading="lazy">
+                </div>
+                <div class="film-card__info">
+                    <div class="film-card__title">Nathicharami</div>
+                    <div class="film-card__track">"Vasundhare" &amp; "Desire" &mdash; Bindhumalini</div>
+                    <div class="film-card__role">Trombone</div>
                 </div>
             </div>
         </div>
@@ -2451,7 +2405,7 @@
             <!-- 2004 — Brass band (trombone slide) -->
             <div class="h-timeline__item">
                 <div class="h-timeline__icon-wrap">
-                    <svg class="h-timeline__icon" viewBox="0 0 24 24"><path d="M3 12h13"/><path d="M16 12q3-4 5-4v8q-2 0-5-4"/><line x1="3" y1="10" x2="3" y2="14"/></svg>
+                    <img class="h-timeline__icon-img" src="Icons/trumpet.png" alt="Trombone">
                 </div>
                 <div class="h-timeline__stem"></div>
                 <div class="h-timeline__content">
@@ -2464,7 +2418,7 @@
             <!-- 2011 — Orchestra (music stand) -->
             <div class="h-timeline__item">
                 <div class="h-timeline__icon-wrap">
-                    <svg class="h-timeline__icon" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="11" rx="1"/><line x1="12" y1="14" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="8" y1="7" x2="16" y2="7" opacity="0.5"/><line x1="8" y1="10" x2="14" y2="10" opacity="0.5"/></svg>
+                    <img class="h-timeline__icon-img" src="Icons/g-clef-musical-note.png" alt="Music">
                 </div>
                 <div class="h-timeline__stem"></div>
                 <div class="h-timeline__content">
@@ -2477,7 +2431,7 @@
             <!-- 2013 — Founded band (quarter note) -->
             <div class="h-timeline__item">
                 <div class="h-timeline__icon-wrap">
-                    <svg class="h-timeline__icon" viewBox="0 0 24 24"><line x1="14" y1="4" x2="14" y2="17"/><ellipse cx="10" cy="18" rx="4" ry="3" transform="rotate(-15 10 18)"/><path d="M14 4q5 2 4 7" opacity="0.6"/></svg>
+                    <img class="h-timeline__icon-img" src="Icons/half note.png" alt="Music note">
                 </div>
                 <div class="h-timeline__stem"></div>
                 <div class="h-timeline__content">
@@ -2503,7 +2457,7 @@
             <!-- 2015 — Ska/electro (vinyl record) -->
             <div class="h-timeline__item">
                 <div class="h-timeline__icon-wrap">
-                    <svg class="h-timeline__icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="6" opacity="0.3" stroke-dasharray="2 3"/></svg>
+                    <img class="h-timeline__icon-img" src="Icons/vinyl.png" alt="Vinyl">
                 </div>
                 <div class="h-timeline__stem"></div>
                 <div class="h-timeline__content">
@@ -2516,7 +2470,7 @@
             <!-- 2017 — Benny Dayal (microphone) -->
             <div class="h-timeline__item">
                 <div class="h-timeline__icon-wrap">
-                    <svg class="h-timeline__icon" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11v1a7 7 0 0 0 14 0v-1"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+                    <img class="h-timeline__icon-img" src="Icons/mic.png" alt="Microphone">
                 </div>
                 <div class="h-timeline__stem"></div>
                 <div class="h-timeline__content">
@@ -2555,7 +2509,7 @@
             <!-- 2024 — Hukum World Tour (arena/stage) -->
             <div class="h-timeline__item">
                 <div class="h-timeline__icon-wrap">
-                    <svg class="h-timeline__icon" viewBox="0 0 24 24"><path d="M3 18h18M6 18v-4M10 18v-7M14 18v-7M18 18v-4"/><path d="M5 14h14" opacity="0.3"/><path d="M8 7l4-4 4 4" opacity="0.5"/></svg>
+                    <img class="h-timeline__icon-img" src="Icons/amp.png" alt="Amplifier">
                 </div>
                 <div class="h-timeline__stem"></div>
                 <div class="h-timeline__content">
@@ -2568,7 +2522,7 @@
             <!-- Now — Still moving (headphones) -->
             <div class="h-timeline__item">
                 <div class="h-timeline__icon-wrap">
-                    <svg class="h-timeline__icon" viewBox="0 0 24 24"><path d="M6 16v-4a6 6 0 0 1 12 0v4"/><rect x="3" y="15" width="4" height="6" rx="1"/><rect x="17" y="15" width="4" height="6" rx="1"/></svg>
+                    <img class="h-timeline__icon-img" src="Icons/music production.png" alt="Music production">
                 </div>
                 <div class="h-timeline__stem"></div>
                 <div class="h-timeline__content">
@@ -2847,11 +2801,14 @@
     const modalContent = document.getElementById('modalContent');
     const modalClose = document.getElementById('modalClose');
 
-    document.querySelectorAll('.work-thumb[data-link]').forEach(thumb => {
+    document.querySelectorAll('.work-thumb[data-video]').forEach(thumb => {
         thumb.addEventListener('click', () => {
             const grid = thumb.closest('.work-grid');
             if (grid && grid._hasDragged && grid._hasDragged()) return;
-            window.open(thumb.dataset.link, '_blank', 'noopener');
+            const url = thumb.dataset.video;
+            modalContent.innerHTML = '<iframe src="' + url + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
         });
     });
 
