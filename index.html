@@ -597,165 +597,6 @@
         .instrument:hover::before { transform: scaleX(1); }
 
         /* ========================================
-           VIDEO MOSAIC — Postcards from the Road
-        ======================================== */
-        .video-mosaic {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 28px 24px;
-        }
-        .video-mosaic__item {
-            position: relative;
-            cursor: pointer;
-            background: #f0ece4;
-            padding: 10px 10px 36px 10px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.4), 0 1px 3px rgba(0,0,0,0.2);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-        .video-mosaic__item:hover {
-            transform: translateY(-4px) rotate(0deg) !important;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
-        }
-        /* Slight random rotations for collage feel */
-        .video-mosaic__item:nth-child(1) { transform: rotate(-1.5deg); }
-        .video-mosaic__item:nth-child(2) { transform: rotate(1.8deg); }
-        .video-mosaic__item:nth-child(3) { transform: rotate(-0.8deg); }
-        .video-mosaic__item:nth-child(4) { transform: rotate(1.2deg); }
-        .video-mosaic__item:nth-child(5) { transform: rotate(-2deg); }
-        .video-mosaic__item:nth-child(6) { transform: rotate(0.8deg); }
-        .video-mosaic__video-wrap {
-            position: relative;
-            overflow: hidden;
-            aspect-ratio: 4/3;
-        }
-        .video-mosaic__poster-img {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%; object-fit: cover;
-            filter: grayscale(100%) contrast(1.05) blur(4px);
-            z-index: 1;
-            transition: opacity 0.5s ease;
-        }
-        .video-mosaic__darken {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.45);
-            z-index: 2;
-            transition: opacity 0.5s ease;
-        }
-        .video-mosaic__item:hover .video-mosaic__poster-img,
-        .video-mosaic__item:hover .video-mosaic__darken {
-            opacity: 0;
-            pointer-events: none;
-        }
-        .video-mosaic__item video {
-            position: relative;
-            width: 100%; height: 100%; object-fit: cover;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-        .video-mosaic__item:hover video {
-            transform: scale(1.04);
-        }
-        /* City label — handwritten style at bottom of postcard */
-        .video-mosaic__label {
-            position: absolute;
-            top: 50%; left: 50%;
-            font-family: var(--font-head); font-size: 40px; font-weight: 400;
-            letter-spacing: 5px; text-transform: uppercase;
-            color: #ff8c42;
-            line-height: 1;
-            padding: 16px 28px 12px;
-            border: 3px solid #ff8c42;
-            text-shadow: 0 0 12px rgba(255,140,66,0.6), 0 0 24px rgba(255,94,26,0.3);
-            opacity: 1;
-            text-shadow: 0 0 8px rgba(255,94,26,0.3);
-            pointer-events: none;
-            z-index: 2;
-            white-space: nowrap;
-            text-align: center;
-            transition: opacity 0.4s ease;
-        }
-        .video-mosaic__item:hover .video-mosaic__label { opacity: 0; }
-        .video-mosaic__label::before {
-            content: '';
-            position: absolute; inset: 5px;
-            border: 1.5px solid #ff8c42;
-            opacity: 0.5;
-        }
-        /* 1 — Kansas City: Circle stamp */
-        .video-mosaic__item:nth-child(1) .video-mosaic__label {
-            transform: translate(-50%, -50%) rotate(-8deg);
-            border-radius: 50%;
-            padding: 40px 36px 36px;
-            font-size: 32px;
-            letter-spacing: 4px;
-        }
-        .video-mosaic__item:nth-child(1) .video-mosaic__label::before { border-radius: 50%; }
-        /* 2 — Chicago: Rectangle, tilted right */
-        .video-mosaic__item:nth-child(2) .video-mosaic__label {
-            transform: translate(-50%, -50%) rotate(5deg);
-            border-radius: 2px;
-            padding: 20px 36px 16px;
-        }
-        .video-mosaic__item:nth-child(2) .video-mosaic__label::before { border-radius: 1px; }
-        /* 3 — Seattle: Oval stamp */
-        .video-mosaic__item:nth-child(3) .video-mosaic__label {
-            transform: translate(-50%, -50%) rotate(-4deg);
-            border-radius: 50%;
-            padding: 28px 48px 24px;
-        }
-        .video-mosaic__item:nth-child(3) .video-mosaic__label::before { border-radius: 50%; }
-        /* 4 — Morocco: Square stamp */
-        .video-mosaic__item:nth-child(4) .video-mosaic__label {
-            transform: translate(-50%, -50%) rotate(7deg);
-            border-radius: 0;
-            padding: 32px 32px 28px;
-        }
-        .video-mosaic__item:nth-child(4) .video-mosaic__label::before { border-radius: 0; }
-        /* 5 — Portland: Circle stamp */
-        .video-mosaic__item:nth-child(5) .video-mosaic__label {
-            transform: translate(-50%, -50%) rotate(5deg);
-            border-radius: 50%;
-            padding: 36px 30px 32px;
-            font-size: 28px;
-            letter-spacing: 3px;
-        }
-        .video-mosaic__item:nth-child(5) .video-mosaic__label::before { border-radius: 50%; }
-        /* 6 — Backstage: Rounded rectangle, slight tilt */
-        .video-mosaic__item:nth-child(6) .video-mosaic__label {
-            transform: translate(-50%, -50%) rotate(-3deg);
-            border-radius: 24px;
-            padding: 20px 40px 16px;
-        }
-        .video-mosaic__item:nth-child(6) .video-mosaic__label::before { border-radius: 20px; }
-        /* Hover overlay on the video area */
-        .video-mosaic__overlay {
-            position: absolute; inset: 0;
-            background: linear-gradient(to top, rgba(10,10,10,0.7) 0%, transparent 50%);
-            display: flex; flex-direction: column; justify-content: flex-end;
-            padding: 10px 12px;
-            opacity: 0; transition: opacity 0.4s ease;
-            z-index: 3;
-        }
-        .video-mosaic__item:hover .video-mosaic__overlay { opacity: 1; }
-        .video-mosaic__play {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 40px; height: 40px; border-radius: 50%;
-            background: rgba(255,94,26,0.85);
-            display: flex; align-items: center; justify-content: center;
-            opacity: 0; transition: opacity 0.4s ease;
-            z-index: 3;
-        }
-        .video-mosaic__item:hover .video-mosaic__play { opacity: 1; }
-        .video-mosaic__play svg { width: 16px; height: 16px; fill: var(--pure-white); margin-left: 2px; }
-        .video-mosaic__title {
-            font-family: var(--font-head); font-size: 13px; letter-spacing: 2px;
-            text-transform: uppercase; color: var(--pure-white);
-        }
-
-
-        /* ========================================
            SPOTIFY PLAYLIST — AUTO-SCROLL WRAPPER
         ======================================== */
         .spotify-wrap {
@@ -1334,14 +1175,7 @@
             .collab-card { flex: 0 0 calc(33.33% - 11px); }
             .stats-bar { grid-template-columns: repeat(3, 1fr); }
             .stats-bar__item:nth-child(3) { border-right: none; }
-            .video-mosaic { grid-template-columns: repeat(3, 1fr); gap: 20px 16px; }
-            .video-mosaic__item { padding: 8px 8px 30px 8px; }
-            .video-mosaic__label { font-size: 22px; padding: 10px 18px 8px; letter-spacing: 3px; }
-            .video-mosaic__item:nth-child(1) .video-mosaic__label { font-size: 18px; padding: 24px 22px 20px; }
-            .video-mosaic__item:nth-child(3) .video-mosaic__label { padding: 18px 30px 14px; }
-            .video-mosaic__item:nth-child(4) .video-mosaic__label { padding: 20px 20px 16px; }
-            .video-mosaic__item:nth-child(5) .video-mosaic__label { font-size: 18px; padding: 22px 18px 18px; }
-            .video-mosaic__item:nth-child(6) .video-mosaic__label { padding: 12px 24px 10px; }
+
         }
         @media (max-width: 768px) {
             .cursor-trombone, .cursor-note { display: none; }
@@ -1375,15 +1209,7 @@
             .modal { padding: 24px; }
             .names-cloud__name { font-size: 14px; padding: 10px 16px; }
             .h-timeline__item { flex: 0 0 260px; }
-            .video-mosaic { grid-template-columns: repeat(2, 1fr); gap: 16px 12px; }
-            .video-mosaic__item { padding: 6px 6px 28px 6px; }
-            .video-mosaic__label { font-size: 16px; padding: 8px 14px 6px; letter-spacing: 2px; border-width: 2px; }
-            .video-mosaic__label::before { inset: 3px; border-width: 1px; }
-            .video-mosaic__item:nth-child(1) .video-mosaic__label { font-size: 14px; padding: 18px 16px 16px; letter-spacing: 2px; }
-            .video-mosaic__item:nth-child(3) .video-mosaic__label { padding: 14px 22px 12px; }
-            .video-mosaic__item:nth-child(4) .video-mosaic__label { padding: 16px 16px 14px; }
-            .video-mosaic__item:nth-child(5) .video-mosaic__label { font-size: 14px; padding: 16px 14px 14px; letter-spacing: 2px; }
-            .video-mosaic__item:nth-child(6) .video-mosaic__label { padding: 10px 20px 8px; }
+
         }
         @media (max-width: 480px) {
             .stats-bar { grid-template-columns: 1fr 1fr; }
@@ -1394,15 +1220,7 @@
             .work-thumb { flex: 0 0 260px; }
             .world__stats { gap: 24px; }
             .world__stat-num { font-size: 36px; }
-            .video-mosaic { grid-template-columns: 1fr 1fr; gap: 14px 10px; }
-            .video-mosaic__item { padding: 5px 5px 24px 5px; }
-            .video-mosaic__label { font-size: 14px; padding: 7px 12px 5px; letter-spacing: 1.5px; border-width: 1.5px; }
-            .video-mosaic__label::before { inset: 2px; border-width: 1px; }
-            .video-mosaic__item:nth-child(1) .video-mosaic__label { font-size: 12px; padding: 14px 12px 12px; letter-spacing: 1.5px; }
-            .video-mosaic__item:nth-child(3) .video-mosaic__label { padding: 12px 18px 10px; }
-            .video-mosaic__item:nth-child(4) .video-mosaic__label { padding: 14px 14px 12px; }
-            .video-mosaic__item:nth-child(5) .video-mosaic__label { font-size: 12px; padding: 14px 12px 12px; letter-spacing: 1.5px; }
-            .video-mosaic__item:nth-child(6) .video-mosaic__label { padding: 8px 16px 6px; }
+
             .names-cloud__name { font-size: 13px; padding: 8px 12px; }
         }
         @supports not (background-attachment: fixed) {
@@ -1980,84 +1798,6 @@
                 <div class="parallax-break__text reveal">
                     <div class="parallax-break__quote" style="line-height: 1.05;">Every city sounds different<br>when you're <span class="script script--accent">on that stage</span></div>
                 </div>
-            </div>
-        </div>
-
-        <h3 class="reveal" style="font-family: var(--font-head); font-size: clamp(24px, 3vw, 36px); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 24px; margin-top: 64px; color: var(--pure-white);">
-            <span class="script script--accent">Postcards from the Road</span>
-        </h3>
-        <div class="video-mosaic reveal reveal-d1">
-            <div class="video-mosaic__item">
-                <div class="video-mosaic__video-wrap">
-                    <img src="images/poster-kansas-city.jpg" alt="Kansas City" class="video-mosaic__poster-img">
-                    <div class="video-mosaic__darken"></div>
-                    <video muted loop playsinline preload="none" poster="images/poster-kansas-city.jpg" onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0;">
-                        <source src="videos/kansas-city.mp4" type="video/mp4">
-                    </video>
-                    <div class="video-mosaic__play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg></div>
-                    <div class="video-mosaic__overlay"><div class="video-mosaic__title">Kansas City</div></div>
-                </div>
-                <div class="video-mosaic__label">Kansas City</div>
-            </div>
-            <div class="video-mosaic__item">
-                <div class="video-mosaic__video-wrap">
-                    <img src="images/poster-chicago.jpg" alt="Chicago" class="video-mosaic__poster-img">
-                    <div class="video-mosaic__darken"></div>
-                    <video muted loop playsinline preload="none" poster="images/poster-chicago.jpg" onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0;">
-                        <source src="videos/chicago.mp4" type="video/mp4">
-                    </video>
-                    <div class="video-mosaic__play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg></div>
-                    <div class="video-mosaic__overlay"><div class="video-mosaic__title">Chicago</div></div>
-                </div>
-                <div class="video-mosaic__label">Chicago</div>
-            </div>
-            <div class="video-mosaic__item">
-                <div class="video-mosaic__video-wrap">
-                    <img src="images/poster-seattle.jpg" alt="Seattle" class="video-mosaic__poster-img">
-                    <div class="video-mosaic__darken"></div>
-                    <video muted loop playsinline preload="none" poster="images/poster-seattle.jpg" onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0;">
-                        <source src="videos/seattle.mp4" type="video/mp4">
-                    </video>
-                    <div class="video-mosaic__play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg></div>
-                    <div class="video-mosaic__overlay"><div class="video-mosaic__title">Seattle</div></div>
-                </div>
-                <div class="video-mosaic__label">Seattle</div>
-            </div>
-            <div class="video-mosaic__item">
-                <div class="video-mosaic__video-wrap">
-                    <img src="images/poster-morocco.jpg" alt="Morocco" class="video-mosaic__poster-img">
-                    <div class="video-mosaic__darken"></div>
-                    <video muted loop playsinline preload="none" poster="images/poster-morocco.jpg" onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0;">
-                        <source src="videos/morocco.mp4" type="video/mp4">
-                    </video>
-                    <div class="video-mosaic__play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg></div>
-                    <div class="video-mosaic__overlay"><div class="video-mosaic__title">Morocco</div></div>
-                </div>
-                <div class="video-mosaic__label">Morocco</div>
-            </div>
-            <div class="video-mosaic__item">
-                <div class="video-mosaic__video-wrap">
-                    <img src="images/poster-portland.jpg" alt="Portland" class="video-mosaic__poster-img">
-                    <div class="video-mosaic__darken"></div>
-                    <video muted loop playsinline preload="none" poster="images/poster-portland.jpg" onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0;">
-                        <source src="videos/portland.mp4" type="video/mp4">
-                    </video>
-                    <div class="video-mosaic__play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg></div>
-                    <div class="video-mosaic__overlay"><div class="video-mosaic__title">Portland</div></div>
-                </div>
-                <div class="video-mosaic__label">Portland</div>
-            </div>
-            <div class="video-mosaic__item">
-                <div class="video-mosaic__video-wrap">
-                    <img src="images/poster-backstage.jpg" alt="Backstage" class="video-mosaic__poster-img">
-                    <div class="video-mosaic__darken"></div>
-                    <video muted loop playsinline preload="none" poster="images/poster-backstage.jpg" onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0;">
-                        <source src="videos/backstage.mp4" type="video/mp4">
-                    </video>
-                    <div class="video-mosaic__play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg></div>
-                    <div class="video-mosaic__overlay"><div class="video-mosaic__title">Backstage</div></div>
-                </div>
-                <div class="video-mosaic__label">Backstage</div>
             </div>
         </div>
     </div>
@@ -2868,21 +2608,6 @@
         spotifyObs.observe(spotifyWrap);
     }
 
-    // Postcard video click — open in modal
-    document.querySelectorAll('.video-mosaic__item').forEach(card => {
-        let dragMoved = false;
-        card.addEventListener('mousedown', () => { dragMoved = false; });
-        card.addEventListener('mousemove', () => { dragMoved = true; });
-        card.addEventListener('click', () => {
-            if (dragMoved) return;
-            const video = card.querySelector('video');
-            if (!video) return;
-            const src = video.querySelector('source').getAttribute('src');
-            modalContent.innerHTML = '<video autoplay controls playsinline style="width:100%;height:100%;object-fit:contain;background:#000;"><source src="' + src + '" type="video/mp4"></video>';
-            modal.classList.add('open');
-            document.body.style.overflow = 'hidden';
-        });
-    });
 
     // Name tags random color on hover
     const colors = ['var(--orange)', 'var(--red)', 'var(--green)', 'var(--yellow)'];
@@ -2896,14 +2621,6 @@
         });
     });
 
-    // Video showcase - play on touch for mobile
-    if ('ontouchstart' in window) {
-        document.querySelectorAll('.video-mosaic__item video').forEach(vid => {
-            vid.closest('.video-mosaic__item').addEventListener('touchstart', () => {
-                if (vid.paused) { vid.play(); } else { vid.pause(); vid.currentTime = 0; }
-            }, { passive: true });
-        });
-    }
 
 })();
 </script>
