@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RJT — Rahul Joshua Thomas | Trombonist & Saxophonist</title>
-    <meta name="description" content="Rahul Joshua Thomas — touring trombonist, saxophonist, multi-instrumentalist. From Bengaluru to London's O2 Arena. 1500+ shows across 20+ countries. Live brass, touring stages.">
+    <meta name="description" content="Rahul Joshua Thomas — touring trombonist, saxophonist, multi-instrumentalist. From Bengaluru to London's O2 Arena. 1500+ shows across 26+ countries. Live brass, touring stages.">
     <link rel="preload" href="fonts/merrxi_script/Merrxi.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/Bebas_Neue/BebasNeue-Regular.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preconnect" href="https://image.tmdb.org">
@@ -955,6 +955,60 @@
             background: rgba(255,94,26,0.08);
         }
 
+        /* Tour Tabs */
+        .tour-tabs {
+            display: flex; gap: 0; margin-top: 48px; margin-bottom: 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            overflow-x: auto; scrollbar-width: none;
+        }
+        .tour-tabs::-webkit-scrollbar { display: none; }
+        .tour-tab {
+            font-family: var(--font-head); font-size: 13px; font-weight: 400;
+            letter-spacing: 2px; text-transform: uppercase;
+            color: var(--ash); padding: 16px 24px;
+            cursor: pointer; white-space: nowrap; position: relative;
+            transition: color 0.3s ease; background: none; border: none;
+        }
+        .tour-tab::after {
+            content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+            height: 2px; background: var(--orange); transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        .tour-tab:hover { color: var(--silver); }
+        .tour-tab--active { color: var(--pure-white); }
+        .tour-tab--active::after { transform: scaleX(1); }
+        .tour-panel { display: none !important; padding-top: 40px; }
+        .tour-panel--active:not(.tour-panel--grid) { display: block !important; }
+        .tour-panel--active.tour-panel--grid { display: grid !important; }
+        .tour-country {
+            margin-bottom: 28px;
+        }
+        .tour-country__name {
+            font-family: var(--font-head); font-size: 13px; font-weight: 400;
+            letter-spacing: 2px; text-transform: uppercase;
+            color: var(--orange); margin-bottom: 10px;
+        }
+        .tour-country__cities { display: flex; flex-wrap: wrap; gap: 6px; }
+        /* India panel: tighter multi-column flow for 50 cities */
+        .tour-panel--india .tour-region__cities {
+            display: flex; flex-wrap: wrap; gap: 6px;
+        }
+        /* Multi-column grid for international panels */
+        .tour-panel--grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 12px 48px;
+        }
+        .tour-panel--grid .tour-country {
+            margin-bottom: 12px; break-inside: avoid;
+        }
+        @media (max-width: 1024px) {
+            .tour-panel--grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .tour-tab { padding: 12px 16px; font-size: 11px; letter-spacing: 1px; }
+            .tour-panel--grid { grid-template-columns: 1fr; }
+        }
+
         .world__stats {
             display: flex; justify-content: center; gap: 64px; margin-top: 48px;
             padding-top: 48px; border-top: 1px solid rgba(255,255,255,0.06);
@@ -1458,7 +1512,7 @@
         <div class="stats-bar__label">Instruments</div>
     </div>
     <div class="stats-bar__item reveal reveal-d4">
-        <div class="stats-bar__num"><span class="counter" data-target="20">0</span><span class="stats-bar__suffix">+</span></div>
+        <div class="stats-bar__num"><span class="counter" data-target="26">0</span><span class="stats-bar__suffix">+</span></div>
         <div class="stats-bar__label">Countries</div>
     </div>
 </div>
@@ -1921,149 +1975,273 @@
     <div class="world__container">
         <div class="section__label reveal">Global Reach</div>
         <h2 class="section__title reveal reveal-d1"><span class="script script--accent">Stages Worldwide</span></h2>
-        <p class="section__subtitle reveal reveal-d2">From Bengaluru soundchecks to arena stages on four continents.<br>Touring since 2014.</p>
+        <p class="section__subtitle reveal reveal-d2">Touring since 2014, from festival stages in India to world-class arena stages across 5 continents.</p>
 
-        <div class="tour-regions reveal reveal-d3">
-            <div class="tour-region">
-                <div class="tour-region__header">
-                    <span class="tour-region__label">India</span>
-                    <span class="tour-region__line"></span>
-                </div>
-                <div class="tour-region__cities">
-                    <span class="tour-city">Bengaluru</span>
-                    <span class="tour-city">Mumbai</span>
-                    <span class="tour-city">Delhi</span>
-                    <span class="tour-city">Hyderabad</span>
-                    <span class="tour-city">Chennai</span>
-                    <span class="tour-city">Kolkata</span>
-                    <span class="tour-city">Pune</span>
-                    <span class="tour-city">Goa</span>
-                    <span class="tour-city">Kochi</span>
-                    <span class="tour-city">Jaipur</span>
-                    <span class="tour-city">Nagpur</span>
-                    <span class="tour-city">Coimbatore</span>
-                    <span class="tour-city">Raipur</span>
-                    <span class="tour-city">Mangalore</span>
-                    <span class="tour-city">Mysore</span>
-                    <span class="tour-city">Vizag</span>
-                    <span class="tour-city">Vijayawada</span>
-                    <span class="tour-city">Madurai</span>
-                    <span class="tour-city">Trichy</span>
-                    <span class="tour-city">Pondicherry</span>
-                    <span class="tour-city">Udaipur</span>
-                    <span class="tour-city">Dehradun</span>
-                    <span class="tour-city">Mussoorie</span>
-                    <span class="tour-city">Kasauli</span>
-                    <span class="tour-city">Shimla</span>
-                    <span class="tour-city">Durgapur</span>
-                    <span class="tour-city">Rourkela</span>
-                    <span class="tour-city">Sambalpur</span>
-                    <span class="tour-city">Jamshedpur</span>
-                    <span class="tour-city">Guwahati</span>
-                    <span class="tour-city">Alsisar</span>
-                    <span class="tour-city">Sreenagar</span>
-                    <span class="tour-city">Calicut</span>
-                    <span class="tour-city">Kannur</span>
+        <!-- Tab Navigation -->
+        <div class="tour-tabs reveal reveal-d3">
+            <button class="tour-tab tour-tab--active" data-tab="india">India</button>
+            <button class="tour-tab" data-tab="americas">Americas</button>
+            <button class="tour-tab" data-tab="europe">Europe</button>
+            <button class="tour-tab" data-tab="mideast">Middle East &amp; Africa</button>
+            <button class="tour-tab" data-tab="asiapac">Asia-Pacific</button>
+        </div>
+
+        <!-- INDIA -->
+        <div class="tour-panel tour-panel--active tour-panel--india" data-panel="india">
+            <div class="tour-region__cities">
+                <span class="tour-city">Ahmedabad</span>
+                <span class="tour-city">Bangalore</span>
+                <span class="tour-city">Calcutta</span>
+                <span class="tour-city">Chennai</span>
+                <span class="tour-city">Delhi</span>
+                <span class="tour-city">Hyderabad</span>
+                <span class="tour-city">Mumbai</span>
+                <span class="tour-city">Agra</span>
+                <span class="tour-city">Allahabad</span>
+                <span class="tour-city">Bhuvneshwar</span>
+                <span class="tour-city">Chandigarh</span>
+                <span class="tour-city">Coimbatore</span>
+                <span class="tour-city">Dehradun</span>
+                <span class="tour-city">Faridabad</span>
+                <span class="tour-city">Goa</span>
+                <span class="tour-city">Gurgaon</span>
+                <span class="tour-city">Guwahati</span>
+                <span class="tour-city">Jaipur</span>
+                <span class="tour-city">Jodhpur</span>
+                <span class="tour-city">Kochi</span>
+                <span class="tour-city">Madurai</span>
+                <span class="tour-city">Mangalore</span>
+                <span class="tour-city">Mysore</span>
+                <span class="tour-city">Nagpur</span>
+                <span class="tour-city">Nashik</span>
+                <span class="tour-city">Noida</span>
+                <span class="tour-city">Pondicherry</span>
+                <span class="tour-city">Raipur</span>
+                <span class="tour-city">Shimla</span>
+                <span class="tour-city">Thrissur</span>
+                <span class="tour-city">Trichy</span>
+                <span class="tour-city">Trivandrum</span>
+                <span class="tour-city">Udaipur</span>
+                <span class="tour-city">Vizag</span>
+                <span class="tour-city">Alsisar</span>
+                <span class="tour-city">Bhramapur</span>
+                <span class="tour-city">Coorg</span>
+                <span class="tour-city">Gir</span>
+                <span class="tour-city">Jaisalmer</span>
+                <span class="tour-city">Jajpur</span>
+                <span class="tour-city">Jamnagar</span>
+                <span class="tour-city">Kalyani</span>
+                <span class="tour-city">Kasauli</span>
+                <span class="tour-city">Mahabalipuram</span>
+                <span class="tour-city">Ooty</span>
+                <span class="tour-city">Patiala</span>
+                <span class="tour-city">Rourkela</span>
+                <span class="tour-city">Shillong</span>
+                <span class="tour-city">Tuticorin</span>
+                <span class="tour-city">Udupi</span>
+            </div>
+        </div>
+
+        <!-- AMERICAS -->
+        <div class="tour-panel tour-panel--grid" data-panel="americas">
+            <div class="tour-country">
+                <div class="tour-country__name">Canada</div>
+                <div class="tour-country__cities">
+                    <span class="tour-city">Montreal</span>
+                    <span class="tour-city">Toronto</span>
+                    <span class="tour-city">Quebec City</span>
+                    <span class="tour-city">Halliburton</span>
                 </div>
             </div>
-
-            <div class="tour-region">
-                <div class="tour-region__header">
-                    <span class="tour-region__label">North America</span>
-                    <span class="tour-region__line"></span>
-                </div>
-                <div class="tour-region__cities">
-                    <span class="tour-city">Toronto</span>
-                    <span class="tour-city">Montreal</span>
-                    <span class="tour-city">Quebec City</span>
-                    <span class="tour-city">New York</span>
-                    <span class="tour-city">New Jersey</span>
+            <div class="tour-country">
+                <div class="tour-country__name">USA</div>
+                <div class="tour-country__cities">
                     <span class="tour-city">Boston</span>
                     <span class="tour-city">Chicago</span>
-                    <span class="tour-city">San Francisco</span>
-                    <span class="tour-city">San Jose</span>
-                    <span class="tour-city">Oakland</span>
-                    <span class="tour-city">Los Angeles</span>
                     <span class="tour-city">Dallas</span>
-                    <span class="tour-city">Kansas City</span>
-                    <span class="tour-city">Portland</span>
+                    <span class="tour-city">Los Angeles</span>
+                    <span class="tour-city">New York</span>
+                    <span class="tour-city">San Francisco</span>
                     <span class="tour-city">Seattle</span>
+                    <span class="tour-city">Kansas City</span>
+                    <span class="tour-city">New Jersey</span>
                     <span class="tour-city">New Orleans</span>
-                    <span class="tour-city">Halliburton</span>
+                    <span class="tour-city">Oakland</span>
+                    <span class="tour-city">Portland</span>
+                    <span class="tour-city">San Jose</span>
                     <span class="tour-city">Vermont</span>
                 </div>
             </div>
+        </div>
 
-            <div class="tour-region">
-                <div class="tour-region__header">
-                    <span class="tour-region__label">Europe</span>
-                    <span class="tour-region__line"></span>
+        <!-- EUROPE -->
+        <div class="tour-panel tour-panel--grid" data-panel="europe">
+            <div class="tour-country">
+                <div class="tour-country__name">Belgium</div>
+                <div class="tour-country__cities">
+                    <span class="tour-city">Antwerp</span>
                 </div>
-                <div class="tour-region__cities">
-                    <span class="tour-city">London</span>
-                    <span class="tour-city">Hampshire</span>
+            </div>
+            <div class="tour-country">
+                <div class="tour-country__name">France</div>
+                <div class="tour-country__cities">
                     <span class="tour-city">Paris</span>
                     <span class="tour-city">Cannes</span>
                     <span class="tour-city">Nice</span>
-                    <span class="tour-city">Zurich</span>
-                    <span class="tour-city">Amsterdam</span>
-                    <span class="tour-city">Utrecht</span>
-                    <span class="tour-city">Antwerp</span>
-                    <span class="tour-city">Lisbon</span>
-                    <span class="tour-city">Oberammergau</span>
+                </div>
+            </div>
+            <div class="tour-country">
+                <div class="tour-country__name">Germany</div>
+                <div class="tour-country__cities">
+                    <span class="tour-city">D&uuml;sseldorf</span>
+                    <span class="tour-city">Oberhausen</span>
+                </div>
+            </div>
+            <div class="tour-country">
+                <div class="tour-country__name">Lithuania</div>
+                <div class="tour-country__cities">
                     <span class="tour-city">Vilnius</span>
                     <span class="tour-city">Kaunas</span>
+                    <span class="tour-city">Silale</span>
                 </div>
             </div>
-
-            <div class="tour-region">
-                <div class="tour-region__header">
-                    <span class="tour-region__label">Australia</span>
-                    <span class="tour-region__line"></span>
-                </div>
-                <div class="tour-region__cities">
-                    <span class="tour-city">Sydney</span>
-                    <span class="tour-city">Melbourne</span>
-                    <span class="tour-city">Brisbane</span>
-                    <span class="tour-city">Gold Coast</span>
+            <div class="tour-country">
+                <div class="tour-country__name">Monaco</div>
+                <div class="tour-country__cities">
+                    <span class="tour-city">Monaco</span>
                 </div>
             </div>
-
-            <div class="tour-region">
-                <div class="tour-region__header">
-                    <span class="tour-region__label">Middle East &amp; Africa</span>
-                    <span class="tour-region__line"></span>
+            <div class="tour-country">
+                <div class="tour-country__name">Netherlands</div>
+                <div class="tour-country__cities">
+                    <span class="tour-city">Amsterdam</span>
+                    <span class="tour-city">Utrecht</span>
                 </div>
-                <div class="tour-region__cities">
-                    <span class="tour-city">Dubai</span>
-                    <span class="tour-city">Abu Dhabi</span>
+            </div>
+            <div class="tour-country">
+                <div class="tour-country__name">Portugal</div>
+                <div class="tour-country__cities">
+                    <span class="tour-city">Lisbon</span>
+                </div>
+            </div>
+            <div class="tour-country">
+                <div class="tour-country__name">Switzerland</div>
+                <div class="tour-country__cities">
+                    <span class="tour-city">Zurich</span>
+                </div>
+            </div>
+            <div class="tour-country">
+                <div class="tour-country__name">United Kingdom</div>
+                <div class="tour-country__cities">
+                    <span class="tour-city">London</span>
+                    <span class="tour-city">Hampshire</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- MIDDLE EAST & AFRICA -->
+        <div class="tour-panel tour-panel--grid" data-panel="mideast">
+            <div class="tour-country">
+                <div class="tour-country__name">Bahrain</div>
+                <div class="tour-country__cities">
                     <span class="tour-city">Manama</span>
-                    <span class="tour-city">Al Rayyan</span>
-                    <span class="tour-city">Muscat</span>
-                    <span class="tour-city">Marrakech</span>
-                    <span class="tour-city">Casablanca</span>
-                    <span class="tour-city">Seychelles</span>
+                </div>
+            </div>
+            <div class="tour-country">
+                <div class="tour-country__name">Mauritius</div>
+                <div class="tour-country__cities">
                     <span class="tour-city">Port Louis</span>
                 </div>
             </div>
-
-            <div class="tour-region">
-                <div class="tour-region__header">
-                    <span class="tour-region__label">Asia</span>
-                    <span class="tour-region__line"></span>
+            <div class="tour-country">
+                <div class="tour-country__name">Morocco</div>
+                <div class="tour-country__cities">
+                    <span class="tour-city">Casablanca</span>
+                    <span class="tour-city">Marrakech</span>
                 </div>
-                <div class="tour-region__cities">
-                    <span class="tour-city">Bangkok</span>
-                    <span class="tour-city">Hua Hin</span>
-                    <span class="tour-city">Pattaya</span>
-                    <span class="tour-city">Kuala Lumpur</span>
-                    <span class="tour-city">Singapore</span>
-                    <span class="tour-city">Hong Kong</span>
-                    <span class="tour-city">Bali</span>
-                    <span class="tour-city">Baku</span>
+            </div>
+            <div class="tour-country">
+                <div class="tour-country__name">Qatar</div>
+                <div class="tour-country__cities">
+                    <span class="tour-city">Doha</span>
+                    <span class="tour-city">Al Rayyan</span>
+                </div>
+            </div>
+            <div class="tour-country">
+                <div class="tour-country__name">Seychelles</div>
+                <div class="tour-country__cities">
+                    <span class="tour-city">Seychelles</span>
+                </div>
+            </div>
+            <div class="tour-country">
+                <div class="tour-country__name">Turkey</div>
+                <div class="tour-country__cities">
                     <span class="tour-city">Ankara</span>
+                    <span class="tour-city">Istanbul</span>
                     <span class="tour-city">Antalya</span>
                     <span class="tour-city">Bodrum</span>
+                    <span class="tour-city">Didim</span>
+                    <span class="tour-city">Guluk</span>
+                </div>
+            </div>
+            <div class="tour-country">
+                <div class="tour-country__name">UAE</div>
+                <div class="tour-country__cities">
+                    <span class="tour-city">Abu Dhabi</span>
+                    <span class="tour-city">Dubai</span>
+                    <span class="tour-city">Sharjah</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ASIA-PACIFIC -->
+        <div class="tour-panel tour-panel--grid" data-panel="asiapac">
+            <div class="tour-country">
+                <div class="tour-country__name">Australia</div>
+                <div class="tour-country__cities">
+                    <span class="tour-city">Brisbane</span>
+                    <span class="tour-city">Melbourne</span>
+                    <span class="tour-city">Sydney</span>
+                    <span class="tour-city">Gold Coast</span>
+                </div>
+            </div>
+            <div class="tour-country">
+                <div class="tour-country__name">Azerbaijan</div>
+                <div class="tour-country__cities">
+                    <span class="tour-city">Baku</span>
+                </div>
+            </div>
+            <div class="tour-country">
+                <div class="tour-country__name">Hong Kong</div>
+                <div class="tour-country__cities">
+                    <span class="tour-city">Hong Kong</span>
+                </div>
+            </div>
+            <div class="tour-country">
+                <div class="tour-country__name">Indonesia</div>
+                <div class="tour-country__cities">
+                    <span class="tour-city">Bali</span>
+                </div>
+            </div>
+            <div class="tour-country">
+                <div class="tour-country__name">Malaysia</div>
+                <div class="tour-country__cities">
+                    <span class="tour-city">Kuala Lumpur</span>
+                </div>
+            </div>
+            <div class="tour-country">
+                <div class="tour-country__name">Singapore</div>
+                <div class="tour-country__cities">
+                    <span class="tour-city">Singapore</span>
+                </div>
+            </div>
+            <div class="tour-country">
+                <div class="tour-country__name">Thailand</div>
+                <div class="tour-country__cities">
+                    <span class="tour-city">Bangkok</span>
+                    <span class="tour-city">Pattaya</span>
+                    <span class="tour-city">Phuket</span>
+                    <span class="tour-city">Hua Hin</span>
                 </div>
             </div>
         </div>
@@ -2074,11 +2252,11 @@
         <!-- Stats -->
         <div class="world__stats reveal">
             <div class="world__stat">
-                <div class="world__stat-num"><span class="counter" data-target="25">0</span>+</div>
+                <div class="world__stat-num"><span class="counter" data-target="26">0</span>+</div>
                 <div class="world__stat-label">Countries</div>
             </div>
             <div class="world__stat">
-                <div class="world__stat-num"><span class="counter" data-target="90">0</span>+</div>
+                <div class="world__stat-num"><span class="counter" data-target="110">0</span>+</div>
                 <div class="world__stat-label">Cities</div>
             </div>
             <div class="world__stat">
@@ -2339,6 +2517,21 @@
 (function() {
     'use strict';
 
+    // Tour Tabs
+    (function() {
+        const tabs = document.querySelectorAll('.tour-tab');
+        const panels = document.querySelectorAll('.tour-panel');
+        tabs.forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                const target = this.getAttribute('data-tab');
+                tabs.forEach(function(t) { t.classList.remove('tour-tab--active'); });
+                panels.forEach(function(p) { p.classList.remove('tour-panel--active'); });
+                this.classList.add('tour-tab--active');
+                document.querySelector('[data-panel="' + target + '"]').classList.add('tour-panel--active');
+            });
+        });
+    })();
+
     // Preloader — dismiss when hero video is ready or after max 2.4s
     (function() {
         const preloader = document.getElementById('preloader');
@@ -2385,7 +2578,7 @@
 
     document.addEventListener('mousemove', e => {
         mx = e.clientX; my = e.clientY;
-        cursorTbn.style.left = mx + 4 + 'px';
+        cursorTbn.style.left = mx - 26 + 'px';
         cursorTbn.style.top = my - 12 + 'px';
         // Reset idle timer
         if (idleTimer) clearTimeout(idleTimer);
